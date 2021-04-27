@@ -5,7 +5,6 @@ import uuid
 
 class Wallets(models.Model):
     name = models.CharField(max_length=256)
-    balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
 
 
 class Transactions(models.Model):
