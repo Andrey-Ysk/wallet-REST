@@ -1,7 +1,9 @@
 from django.conf.urls import url
-from django.urls import include
+from django.urls import include, path
+from rest_framework.schemas import get_schema_view
 from rest_framework_nested import routers
 from .views import WalletsViewSet, TransactionsViewSet, AllTransactionsViewSet
+from django.views.generic import TemplateView
 
 
 wallets_router = routers.DefaultRouter()
@@ -14,4 +16,11 @@ transaction_router.register(r'transactions', TransactionsViewSet, basename='tran
 urlpatterns = [
     url(r'^api/', include(wallets_router.urls)),
     url(r'^api/', include(transaction_router.urls)),
+    path('openapi', get_schema_view(
+        title="Wallet App",
+    ), name='openapi-schema'),
+    path('api-docs/', TemplateView.as_view(
+        template_name='swagger-ui.html',
+        extra_context={'schema_url': 'openapi-schema'}
+    ), name='swagger-ui'),
 ]

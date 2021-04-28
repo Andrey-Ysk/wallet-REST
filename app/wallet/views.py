@@ -8,6 +8,7 @@ from .serializers import WalletSerializer, TransactionSerializer
 class WalletsViewSet(viewsets.ModelViewSet):
     queryset = Wallets.objects.all()
     serializer_class = WalletSerializer
+    http_method_names = ['get', 'post', 'head', 'delete', 'put']
 
 
 class TransactionsViewSet(viewsets.ModelViewSet):
@@ -17,6 +18,7 @@ class TransactionsViewSet(viewsets.ModelViewSet):
         return Transactions.objects.filter(wallet=self.kwargs['wallets_pk'])
 
     serializer_class = TransactionSerializer
+    http_method_names = ['get', 'post', 'head', 'delete', 'put']
 
 
 class AllTransactionsViewSet(ListModelMixin, GenericViewSet):
